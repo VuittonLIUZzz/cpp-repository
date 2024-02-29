@@ -1,0 +1,160 @@
+#include<iostream>
+using namespace std;
+
+/*new用于从堆中分配指定大小的区域 并返回
+获得内存的首地址 相较于malloc可以自动计算大小
+无需指针转换*/
+
+/*simple int* arr =new int[100] 
+
+delete用于释放new分配的内存 delete[] arr*/
+
+/*引用是某个变量的别名 
+类型 &引用名 = a; 常作为形参使用
+void swap(int &a,int &b)*/
+
+/*函数重载 一个函数有多种写法函数名相同 参数不同
+
+int add(int x ,int y)
+float add(float x,float y)形参类型不同*/
+
+/*int add(int x,int y)
+int add(int x,int y,int z)形参个数不同*/
+
+ /*不要将不同功能的函数声明为重载函数 */
+
+/*函数有原型声明且原型声明在定义之前 默认参数值必须在函数原型中给出
+
+只用函数定义或函数定义在前则默认参数值需在函数定义中给出
+*/
+
+/*类 对象的定义 
+ 类是现实世界或思维世界中的实体在计算机中的反映 将数据及这些数据上的操作封装在一起
+ 对象是具有类类型的变量  */
+
+ /*对象是对客观事物的抽象 类是对对象的抽象
+ 类是一种抽象的数据类型 对象是类的实例 类是对象的模板*/
+
+  /* class 类名称
+  {
+  //private和public是访问权限修饰符
+	public:
+		公有成员 //任何外部函数都可以访问
+	private:
+		私有成员 //只允许本类中的函数访问
+	protecte:
+	保护性成员 
+  }*/
+ 
+
+/*封装
+属性 一般定义成private
+行为 一般定义为public*/
+
+class Clock {
+private:
+	int hour, minute, second;
+public:
+	Clock();// 声明无参构造函数
+	Clock(int newH, int newM, int newS);//声明构造函数
+	void setTime(int newH = 0, int newM = 0, int newS = 0);
+	void showTime();
+};
+
+//clock:: 表明其为类中的函数 可以访问private中的成员
+void Clock::setTime(int newH, int newM, int newS) {
+	hour = newH;
+	minute = newM;
+	second = newS; 
+
+}
+void Clock::showTime() {
+	cout << hour << ":" << minute << ":" << second<<endl;
+}
+
+/*定义无参构造函数 */
+Clock::Clock() :hour(1), minute(1), second(1) {
+}
+//构造函数的实现
+//定义有参构造参数 给hour minute second赋初值为传入的参数值
+
+//初始化成员列表
+Clock::Clock(int newH, int newM, int newS) :hour(newH), minute(newM),
+second(newS) {
+}
+
+/*在上例中定义了两个clock构造函数 实现了构造函数的重载
+clock c1; 建立对象c1 自动调用无参构造函数
+clock c2 建立对象c2 自动调用有参构造函数*/
+
+int main()
+{
+	Clock myclock1;//无参构造函数不需要括号 
+	//Clock myClock;//声明变量 类型实例化
+	// 完全没有定义构造函数 所以myclock被赋予缺省的构造函数仍能正常运行
+	//myClock.setTime(8, 30, 30);
+	//myClock.showTime();
+	Clock c(8, 3, 30);  //此处自动调用有参构造函数
+	c.showTime();
+	return 0;
+}
+
+
+
+
+
+/*构造函数特点
+1.构造函数的名字必须与类的名字相同：
+2. 定义构造函数时不能指定返回类型；
+3. 构造函数的代码与其它函数一样，但一般不直接调
+用（显式调用）
+4创建类的一个新对象时，会隐式地自动调用构造函
+数。也就是说，当程序中声明一个新对象时，程序会
+自动调用该对象所属类中定义的构造函数来初始化这
+个对象的状态；
+5.若在定义类时没有定义构造函数，C++会自动为该类
+创建一个缺省（default）的构造函数。这个缺省构造
+函数没有任何形式参数，
+且函数体为空。*/
+
+/*析构函数在对象撤销时执行一些清理任务*/
+
+
+
+
+
+/*析构函数特点
+  1.析构函数的名字必须是在类名前加上一个波纹号以区别于构造函数；
+•2.定义析构函数时也不能指定返回类型；
+•3.在对象消亡时，隐式地自动调用析构函数。也就是
+说，当程序中一个对象作用结束时，程序会自动调用
+该对象所属类中定义的析构函数来清除这个对象所占
+的存储空间：
+•4.若在定义类时没有定义析构函数，C++会自动为该
+类创建一个缺省的析构西数。这个缺省析构函数没有
+任何形式参数，且函数体为空。*/
+
+
+
+class DemoClass {
+public:
+	DemoClass(int i);
+	~DemoClass();
+
+};
+DemoClass::DemoClass(int i)
+{
+	cout << "initial value is" << i << endl;
+
+}
+DemoClass::~DemoClass()
+{
+	cout << "destructor" << endl;
+}
+void main()
+{
+	DemoClass obj(30);
+	cout << "this is the end main()" << endl;
+	return;
+
+}
