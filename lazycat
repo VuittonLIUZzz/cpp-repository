@@ -158,3 +158,229 @@ void main()
 	return;
 
 }
+
+
+
+class Clock {
+private:
+	int hour, minute, second;
+public:
+	Clock();
+	Clock(int newH, int newM, int newS);
+
+	// 内联函数 设置属性的值
+	//定义在类内部的函数 一般比较短小
+	void setHour(int hour) {
+		this->hour = hour;
+	}
+	void setMinute(int minute) {
+		this->minute = minute;
+	}
+	void setSecond(int second) {
+		this->second = second;
+	}
+	int getHour() {
+		return hour;
+	}
+	int getMinute() {
+		return minute;
+	}
+	int getSecond() {
+		return second;
+	}
+	void display()
+	{
+		cout << hour << ":" << minute << ":" << second << endl;
+	}
+};
+
+Clock::Clock() :hour(1), minute(1), second(1) {
+}
+Clock::Clock(int newH, int newM, int newS) :hour(newH), minute(newM)
+, second(newS) {
+}
+
+
+int main()
+{
+	Clock myclock1;
+	cout << "利用无参构造函数创建的事件对象为:";
+	myclock1.display();
+	Clock myclock2(8, 30, 30);
+	cout << "利用无参函数创建的时间对象为:";
+	myclock2.display();
+	myclock2.setHour(21);
+	cout<< "利用无参函数创建的时间对象为:";
+	myclock2.display();
+
+	return 0;
+}
+ 
+/*数据域封装的优点 
+1.防止对封装数据的越权访问
+例如隐藏studentID 实现数据域保护的方法有 用private声明这个数据
+不要定义getStudent函数
+2.限制私有特性改变时产生的连锁反应*/
+
+class Student{
+private:
+	int age;
+public:
+	int getAge() {
+		return age;
+	}
+};
+
+/*优化为如下程序:*/
+class Student {
+	//把age属性替换成出生年月日
+private:
+	int birthyear;
+	int birthMonth;
+	int birthDate;
+public:
+	int getAge() {
+		age = 系统时间 - 出生年月日;
+		return age;
+	}
+};
+/*Student s;
+int currentAge = s.getAge();
+
+int current = s.age(不好的写法)
+隐藏得越好 修改的权力越大*/
+
+
+class Student {
+private:
+	char birthdate[12];
+	void setBirthdate(char d[]) {
+		strcpy(birthdate, d);
+	}
+
+};
+
+
+3/3
+class Rectangle {
+private:
+	int width, height;
+
+public:
+	//声明无参构造函数
+	Rectangle();
+	//
+	Rectangle(int width, int height);
+	int getwidth()
+	{
+		return  width;
+	}
+	int getheight() {
+		return height;
+	}
+	int getArea(int width, int height);
+	int getPerimeter(int width, int height);
+
+
+};
+//定义无参构造函数
+Rectangle::Rectangle():width(1),height(1) {
+}
+//定义有参构造函数
+Rectangle::Rectangle(int width1, int height1) :width(width1), height(height1) {
+}
+
+int Rectangle::getArea(int width, int height)
+{
+	int Area = width * height;
+	return Area;
+}
+
+int Rectangle::getPerimeter(int width, int height)
+{
+	int perimeter = 2 * (width + height);
+	return perimeter;
+}
+/*类+名称定义对象
+ 通过"."操作符实现对对象成员函数的访问*/
+int main()
+{
+	Rectangle Area1;
+
+	return 0;
+}
+
+/*
+静态数据成员特点
+1.用关键字static声明
+2.为该类所有对象共享 静态数据成员具有静态生存期
+3.须在类外定义和初始化 "::"指明所属类
+*/
+class Point {
+private:
+	int x, y;
+	static int count;//y用于记录点的个数
+public:
+	Point(int x = 0, int y = 0) : x(x), y(y) {
+		count++;
+	}
+	Point(Point& p)//复制构造函数
+	{
+		x = p.x;
+		y = p.y;
+		count++;
+	}
+	~Point() { count--; }
+	int getX() {
+		return x;
+	}
+	int getY() {
+		return y;
+	}
+	void addcount() {
+		count++;
+	}
+	void showcount() {//静态函数成员
+		cout << "object count =" << count << endl;
+	}
+};
+int Point::count = 0;//静态数据成员定义和初始化
+int main()
+{
+	Point a(4, 5);
+	cout << "Point A :" << a.getX() << a.getY();
+	a.showcount();
+
+	Point b;
+	cout << "Point B :" << b.getX() << b.getY();
+	b.showcount();
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
